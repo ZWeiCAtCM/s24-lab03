@@ -52,4 +52,11 @@ public interface IntQueue {
      * @return The number of elements in the queue.
      */
     int size();
+
+    /**
+     * Return the capacity of the queue.
+     *
+     * @return The capacity of elements in the queue.
+     */
+    int capacity();
 }

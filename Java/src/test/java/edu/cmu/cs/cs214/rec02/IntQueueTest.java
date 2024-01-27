@@ -38,10 +38,10 @@ public class IntQueueTest {
     @Before
     public void setUp() {
         // comment/uncomment these lines to test each class
-        mQueue = new LinkedIntQueue();
+        mQueue = new ArrayIntQueue();
     //    mQueue = new ArrayIntQueue();
 
-        testList = new ArrayList<>(List.of(1, 2, 3));
+        testList = new ArrayList<>(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14));
     }
 
     @Test
@@ -52,20 +52,26 @@ public class IntQueueTest {
 
     @Test
     public void testNotEmpty() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        for (int i = 0; i < testList.size(); i++) {
+            mQueue.enqueue(testList.get(i));
+        }
+        assertFalse(mQueue.isEmpty());
     }
 
     @Test
     public void testPeekEmptyQueue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        assertEquals(null, mQueue.peek());
     }
 
     @Test
     public void testPeekNoEmptyQueue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        for (int i = 0; i < testList.size(); i++) {
+            mQueue.enqueue(testList.get(i));
+        }
+        int head = testList.get(0);
+        int peekResult = mQueue.peek();
+        assertEquals(head, peekResult);
+        assertEquals(testList.size(), mQueue.size());
     }
 
     @Test
@@ -80,8 +86,14 @@ public class IntQueueTest {
 
     @Test
     public void testDequeue() {
-        // TODO: write your own unit test
-        fail("Test not implemented");
+        assertEquals(null, mQueue.dequeue());
+        for (int i = 0; i < testList.size(); i++) {
+            mQueue.enqueue(testList.get(i));
+        }
+        int head = testList.get(0);
+        int dequeueResult = mQueue.dequeue();
+        assertEquals(head, dequeueResult);
+        assertEquals(testList.size() - 1, mQueue.size());
     }
 
     @Test
@@ -104,6 +116,23 @@ public class IntQueueTest {
             }
         }
     }
-
+    
+    @Test
+    public void testEnsureCapacity() {
+        assertTrue(mQueue.capacity() >= mQueue.size() + 1);
+        for (int i = 0; i < testList.size(); i++) {
+            mQueue.enqueue(testList.get(i));
+            assertTrue(mQueue.capacity() >= mQueue.size() + 1);
+        }
+    }
+    
+    @Test
+    public void testClear() {
+        for (int i = 0; i < testList.size(); i++) {
+            mQueue.enqueue(testList.get(i));
+        }
+        mQueue.clear();
+        assertTrue(mQueue.size() == 0);
+    }
 
 }
